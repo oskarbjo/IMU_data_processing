@@ -7,10 +7,10 @@
 
 
 close all; clear all;
-s=serialport("COM6",115200);
+s=serialport("COM5",115200);
 configureTerminator(s,"CR/LF"); %Carriage return/Linefeed ("Serial.write(13);Serial.write(10);")
 data = [];
-N=80000;
+N=30000; %40000
 AVGrawdata = 1;
 rawDataBoxCarN = 1;
 boxCarN = 1; %Complementary filter output averaging
@@ -81,7 +81,7 @@ while 1
 
  
  
- if counter == 150
+ if counter == 500
      
  % Accelerometer data only
  subplot(3,1,1);
@@ -90,6 +90,14 @@ while 1
  plot(Yavg_array);
  subplot(3,1,3);
  plot(Zavg_array);
+ 
+  % Accelerometer data only
+%  subplot(3,1,1);
+%  plot(Xavg_array);
+%  subplot(3,1,2);
+%  plot(Yavg_array);
+%  subplot(3,1,3);
+%  plot(Zavg_array);
      
 
  counter=0;
@@ -99,9 +107,7 @@ while 1
  
 end
 
+%Save calibration data:
+XYZ = [X,Y,Z]; 
 clear s
 
-% function boxCar(array,avgN)
-%     arrayAvg=zeros(sizeof(array));
-%     for N:numel(array)
-%         arrayAvg = 
